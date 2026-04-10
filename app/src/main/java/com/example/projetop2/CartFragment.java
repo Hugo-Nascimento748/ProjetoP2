@@ -31,7 +31,6 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        // --- LÓGICA DO NOVO BOTÃO DE VOLTAR NO TOPO ---
         ImageButton btnVoltar = v.findViewById(R.id.btnVoltarCarrinho);
         btnVoltar.setOnClickListener(view -> {
             if (getActivity() != null) {

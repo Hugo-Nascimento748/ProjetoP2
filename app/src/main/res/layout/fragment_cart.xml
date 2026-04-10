@@ -6,7 +6,6 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <!-- CABEÇALHO CUSTOMIZADO NO TOPO -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +33,6 @@
             android:layout_marginStart="16dp"/>
     </LinearLayout>
 
-    <!-- LISTA DE PRODUTOS -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCarrinho"
         android:layout_width="match_parent"
@@ -42,7 +40,6 @@
         android:layout_weight="1"
         android:padding="8dp"/>
 
-    <!-- CARD DE RESUMO (O que já fizemos antes) -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

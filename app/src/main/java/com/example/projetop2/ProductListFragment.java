@@ -20,7 +20,6 @@ public class ProductListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product_list, container, false);
 
-        // 1. Configurar a Lista (RecyclerView)
         RecyclerView rv = view.findViewById(R.id.recyclerView);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -32,15 +31,12 @@ public class ProductListFragment extends Fragment {
         listaProdutos.add(new Produto(5, "Cabo HDMI", "Black", 20.00, R.drawable.hdmi));
         listaProdutos.add(new Produto(6, "SSD", "250GB", 400.00, R.drawable.ssd));
 
-        // 2. Configurar o Adapter e a ação de ADICIONAR
         ProdutoAdapter adapter = new ProdutoAdapter(listaProdutos, produto -> {
             carrinho.add(produto); // Adiciona na lista interna
             Toast.makeText(getContext(), produto.getNome() + " adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
         });
         rv.setAdapter(adapter);
 
-        // 3. Configurar a ação de IR PARA O CARRINHO (Botão Flutuante)
-        // Certifique-se que o ID no fragment_product_list.xml é fabCarrinho
         ExtendedFloatingActionButton fab = view.findViewById(R.id.fabCarrinho);
         fab.setOnClickListener(v -> {
             if (carrinho.isEmpty()) {
