@@ -24,9 +24,12 @@ public class ProductListFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ArrayList<Produto> listaProdutos = new ArrayList<>();
-        listaProdutos.add(new Produto(1, "Mouse Gamer", "RGB 3200 DPI", 150.00, android.R.drawable.ic_menu_agenda));
-        listaProdutos.add(new Produto(2, "Teclado Mecânico", "Switch Blue", 350.00, android.R.drawable.ic_input_add));
-        listaProdutos.add(new Produto(3, "Monitor 24'", "144Hz IPS", 1200.00, android.R.drawable.ic_menu_gallery));
+        listaProdutos.add(new Produto(1, "Mouse Gamer", "RGB 3200 DPI", 150.00, R.drawable.mouse));
+        listaProdutos.add(new Produto(2, "Teclado Mecânico", "Black Basic", 100.00, R.drawable.teclado));
+        listaProdutos.add(new Produto(3, "Monitor 24'", "144Hz IPS", 800.00, R.drawable.monitor));
+        listaProdutos.add(new Produto(4, "Gabinete Gamer", "White RGB", 250.00, R.drawable.gabinete));
+        listaProdutos.add(new Produto(5, "Cabo HDMI", "Black", 20.00, R.drawable.hdmi));
+        listaProdutos.add(new Produto(5, "SSD", "250GB", 400, R.drawable.ssd));
 
         ProdutoAdapter adapter = new ProdutoAdapter(listaProdutos, produto -> {
             carrinho.add(produto);
