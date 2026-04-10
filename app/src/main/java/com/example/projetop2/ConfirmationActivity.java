@@ -1,7 +1,6 @@
 package com.example.projetop2;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,17 +11,21 @@ public class ConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirmation);
 
         double total = getIntent().getDoubleExtra("valor_total", 0.0);
-        String usuarioMock = "João Silva"; // Nome mock conforme solicitado
+        String metodo = getIntent().getStringExtra("metodo");
+        String parcelas = getIntent().getStringExtra("parcelas");
 
-        TextView txtMensagem = findViewById(R.id.txtMensagem);
-        TextView txtTotal = findViewById(R.id.txtTotalConfirmado);
+        TextView msg = findViewById(R.id.txtSucessoMsg); // Verifique se o ID no XML é esse
 
-        txtMensagem.setText("Obrigado, " + usuarioMock + "!");
-        txtTotal.setText(String.format("Total da compra: R$ %.2f", total));
-    }
+        String resumo = "PEDIDO CONFIRMADO!\n\n" +
+                "Valor: " + java.text.NumberFormat.getCurrencyInstance().format(total) + "\n" +
+                "Forma: " + metodo + "\n" +
+                "Parcelamento: " + parcelas + "\n\n" +
+                "Obrigado por comprar na TecnoStore!";
 
-    public void voltarParaInicio(View v) {
-        // Limpa a pilha de Activities e volta para a primeira (Main)
-        finishAffinity();
+        msg.setText(resumo);
+
+        findViewById(R.id.btnVoltarInicio).setOnClickListener(v -> {
+            finish(); // Fecha a tela e encerra o fluxo
+        });
     }
 }

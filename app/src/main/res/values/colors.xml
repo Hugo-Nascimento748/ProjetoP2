@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#1A237E</color> <!-- Azul Marinho Profundo -->
-    <color name="primary_light">#534BAE</color>
-    <color name="secondary">#00B0FF</color> <!-- Azul Vibrante -->
-    <color name="background">#F5F5F5</color>
+    <color name="black">#121212</color>
+    <color name="primary">#283593</color> <!-- Indigo mais suave -->
+    <color name="primary_light">#5F5FC4</color>
+    <color name="secondary">#0091EA</color> <!-- Azul Tech -->
+    <color name="background">#F0F2F5</color> <!-- Cinza leve para o fundo -->
     <color name="white">#FFFFFF</color>
-    <color name="text_main">#212121</color>
-    <color name="text_secondary">#757575</color>
-    <color name="price_color">#2E7D32</color> <!-- Verde para Preço -->
+    <color name="text_main">#1C1C1C</color>
+    <color name="text_secondary">#5F6368</color>
+    <color name="price_color">#1B5E20</color> <!-- Verde escuro elegante -->
 </resources>

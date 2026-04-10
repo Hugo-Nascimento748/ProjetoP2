@@ -3,6 +3,7 @@ package com.example.projetop2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView; // ADICIONADO
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +29,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         Produto p = produtos.get(position);
         holder.txtNome.setText(p.getNome());
         holder.txtPreco.setText(String.format(Locale.getDefault(), "R$ %.2f", p.getPreco()));
-        // Se tiver imagem (URL ou Recurso), carregue aqui com Glide/Picasso
+
+        // CORREÇÃO: Setar a imagem aqui
+        holder.imgProduto.setImageResource(p.getImagemResId());
     }
 
     @Override
@@ -38,10 +41,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtNome, txtPreco;
+        ImageView imgProduto; // ADICIONADO
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNome = itemView.findViewById(R.id.txtNome);
             txtPreco = itemView.findViewById(R.id.txtPreco);
+            // CORREÇÃO: Buscar o ID da imagem que está no seu item_carrinho.xml
+            imgProduto = itemView.findViewById(R.id.imgProduto);
         }
     }
 }

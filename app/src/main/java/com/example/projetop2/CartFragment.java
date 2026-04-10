@@ -5,18 +5,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton; // ADICIONADO
+import android.widget.Spinner;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class CartFragment extends Fragment {
-    private ArrayList<Produto> listaProdutos;
-    private double valorTotal = 0;
+    private ArrayList<Produto> lista;
+    private double total = 0;
 
     public static CartFragment newInstance(ArrayList<Produto> produtos) {
         CartFragment fragment = new CartFragment();
@@ -26,35 +27,49 @@ public class CartFragment extends Fragment {
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        if (getArguments() != null) {
-            listaProdutos = getArguments().getParcelableArrayList("produtos");
-        }
+        // --- LÓGICA DO NOVO BOTÃO DE VOLTAR NO TOPO ---
+        ImageButton btnVoltar = v.findViewById(R.id.btnVoltarCarrinho);
+        btnVoltar.setOnClickListener(view -> {
+            if (getActivity() != null) {
+                getActivity().finish(); // Fecha a Activity e volta para a vitrine
+            }
+        });
+        // ----------------------------------------------
 
-        RecyclerView rv = view.findViewById(R.id.rvCarrinho);
-        TextView txtTotal = view.findViewById(R.id.txtTotal);
-        Button btnFinalizar = view.findViewById(R.id.btnFinalizar);
+        lista = getArguments().getParcelableArrayList("produtos");
 
-        // Configura RecyclerView
+        RecyclerView rv = v.findViewById(R.id.rvCarrinho);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setAdapter(new CartAdapter(listaProdutos));
+        rv.setAdapter(new CartAdapter(lista));
 
-        // Calcula Total
-        for (Produto p : listaProdutos) {
-            valorTotal += p.getPreco();
-        }
-        txtTotal.setText(String.format("R$ %.2f", valorTotal));
+        // Cálculo do Total
+        TextView txtTotal = v.findViewById(R.id.txtTotal);
+        total = 0; // Resetar para não duplicar em caso de recarregamento
+        for (Produto p : lista) { total += p.getPreco(); }
+        txtTotal.setText(java.text.NumberFormat.getCurrencyInstance().format(total));
 
-        btnFinalizar.setOnClickListener(v -> {
+        // Configurar Spinners
+        Spinner spPagto = v.findViewById(R.id.spinnerPagamento);
+        Spinner spParcela = v.findViewById(R.id.spinnerParcelas);
+
+        String[] opcoesPagto = {"Cartão de Crédito", "Pix", "Boleto"};
+        spPagto.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, opcoesPagto));
+
+        String[] opcoesParcelas = {"1x sem juros", "2x sem juros", "3x sem juros", "10x com juros"};
+        spParcela.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, opcoesParcelas));
+
+        v.findViewById(R.id.btnFinalizar).setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), ConfirmationActivity.class);
-            intent.putExtra("valor_total", valorTotal);
+            intent.putExtra("valor_total", total);
+            intent.putExtra("metodo", spPagto.getSelectedItem().toString());
+            intent.putExtra("parcelas", spParcela.getSelectedItem().toString());
             startActivity(intent);
         });
 
-        return view;
+        return v;
     }
 }
